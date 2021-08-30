@@ -150,8 +150,10 @@ class Contact {
       );
     }
   }
+  //prompt message on console for user input.
   const prompt = require("prompt-sync")();
-  createContatct = () => {
+  //function to create new contact
+  createContact = () => {
     let firstName = prompt("Enter First Name : ");
     let lastName = prompt("Enter last Name : ");
     let address = prompt("Enter Address : ");
@@ -171,6 +173,7 @@ class Contact {
       email
     );
   };
+  //function to edit contact
   editConatct = () => {
     let firstName = prompt(
       "Enter First-Name of contact which you want to edit : "
@@ -193,32 +196,57 @@ class Contact {
       }
     }
   };
+//delete contact from addressbook.
+deleteConatct = () => {
+    let contactName = prompt(
+      "Enter First-Name of contact which you want to delete : "
+    );
+    let isdelete = false;
+    for (var index = 0; index < addressBook.length; index++) {
+      if (addressBook[index].firstName == contactName) {
+        addressBook.splice(index, 1);
+        isdelete = true;
+      }
+    }
+    if (isdelete) {
+      console.log("Contact deleted sucessfully.");
+    } else {
+      console.log("Contact not found.");
+    }
+  };
   let addressBook = new Array();
 
 //user choice and calling functions.
 console.log("Welcome to address book");
-
 let isExit = false;
 while (!isExit) {
-    console.log(
-        "1 Add-Contact :\n2 Display-Contact :\n3 Edit-Contact:\n4 Exit :"
-      );
-      let userChoice = prompt("Enter the number as per against your choice : ");
-      switch (userChoice) {    
-        case "1":
-      try {
-        addressBook.push(createContatct());
+  console.log(
+    "1 Add-Contact :\n2 Display-Contact :\n3 Edit-Contact:\n4 Delete-Contact:\n5 Exit :"
+    );
+    let userChoice = prompt("Enter the number as per against your choice : ");
+    switch (userChoice) {
+      case "1":
+       //creating and add new contacts.
+       try {
+        addressBook.push(createContact());
       } catch (error) {
         console.error(error);
       }
       break;
     case "2":
+      //display all contacts
       console.log(addressBook);
       break;
     case "3":
-      editConatct();
+      //edit contact
+      editContact();
       break;
     case "4":
+      //deleate contact
+      deleteContact();
+      break;
+    case "5":
+      //exit from addressbook program
       console.log("Thank You For Using Address-Book.");
       isExit = true;
       break;
@@ -226,6 +254,6 @@ while (!isExit) {
         console.log("Invalid Option");
         break;
     }
-  }    
+  }            
 
  
