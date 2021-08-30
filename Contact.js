@@ -157,7 +157,8 @@ class Contact {
       "Rushikesh",
       "Bhandare",
       "KarveNaka",
-      "karad",
+      "Karad",
+      "satara",
       "Maharashtra",
       415110,
       "91 7743928819",
@@ -168,42 +169,40 @@ class Contact {
     new Contact(
       "Akshay",
       "Shinde",
-      "Undri",
-      "Pune",
+      "undri",
+      "pune",
       "Maharashtra",
-      4110148,
-      "91 7620043069",
-      "akshay456@gmail.com"
+      4111048,
+      "91 9987000000",
+      "akshay12@gmail.com"
     )
   );
   addressBook.push(
     new Contact(
-      "Veer",
-      "Singh",
-      "Worli",
+      "dinesh",
+      "sharma",
+      "dadar",
       "Mumbai",
-      "Maharashtra",
+      "Maharashta",
       402110,
       "91 9987007700",
-      "veeru@gmail.com"
+      "dinesh@gmail.com"
     )
   );
-  
   addressBook.push(
     new Contact(
-      "ajay",
-      "Sharma",
-      "trimurtinagar",
-      "surat",
-      "Gujrat",
+      "Sameer",
+      "Singh",
+      "sriramnagar",
+      "jaipur",
+      "Rajasthan",
       402110,
       "91 9987000000",
-      "ajay123@gmail.com"
+      "Sammer567@gmail.com"
     )
   );
   //prompt message on console for user input.
   const prompt = require("prompt-sync")();
-  
   //function to create new contact
   createContatct = () => {
     let firstName = prompt("Enter First Name : ");
@@ -263,7 +262,7 @@ class Contact {
     }
   };
   //delete contact from addressbook.
-  deleteConatct = () => {
+  deleteContact = () => {
     let contactName = prompt(
       "Enter First-Name of contact which you want to delete : "
     );
@@ -307,7 +306,6 @@ class Contact {
     let searchResultList = search();
     console.log(`The person are ${searchResultList}`);
   }
-  
   //function to count contact
   countContactByPlace = () => {
     let searchResultList = search();
@@ -317,13 +315,25 @@ class Contact {
     );
     console.log("Number of contacts are " + numberOfContact);
   };
+  
+  //sorting contacts by person's name.
+  sortByName = () => {
+    let arrray = addressBook.sort(function (contact1, contact2) {
+      let a = contact1.firstName.toUpperCase();
+      let b = contact2.firstName.toUpperCase();
+      return a == b ? 0 : a > b ? 1 : -1;
+    });
+    console.log(addressBook.toString());
+  };
+  
   //user choice and calling functions.
   console.log("Welcome to address book");
   
   let isExit = false;
   while (!isExit) {
     console.log(
-      "1 Add-Contact :\n2 Display-Contact :\n3 Print Count Of Contacts In Address-Book:\n4 Edit-Contact:\n5 Delete-Contact:\n6 Search Person By City Or State:\n7 View Contact By City Or State:\n8 Exit :"
+      "1 Add-Contact :\n2 Display-Contact :\n3 Print Count Of Contacts In Address-Book:\n4 Edit-Contact:\n5 Delete-Contact:\n6 Search Person By City Or State:\n7 View Contact By City Or State:\n8 Count By City Or State:\n9 Exit :"
+
     );
   
     let userChoice = prompt("Enter the number as per against your choice : ");
@@ -346,11 +356,11 @@ class Contact {
         break;
       case "4":
         //edit contact
-        editConatct();
+        editContact();
         break;
       case "5":
         //deleate contact
-        deleteConatct();
+        deleteContact();
         break;
       case "6":
         //search person in city or state.
@@ -365,6 +375,10 @@ class Contact {
         countContactByPlace();
         break;
       case "9":
+        //sort contacts by person's name.
+        sortByName();
+        break;
+      case "10":
         //exit from addressbook program
         console.log("Thank You For Using Address-Book.");
         isExit = true;
