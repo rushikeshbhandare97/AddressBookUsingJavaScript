@@ -19,7 +19,6 @@ class Contact {
         return false;
       }
     }
-  
     //gettters and setters for firstName
     get firstName() {
       return this._firstName;
@@ -32,7 +31,6 @@ class Contact {
         throw "First name is incorrect";
       }
     }
-  
     //getter and setter for lastName
     get lastName() {
       return this._lastName;
@@ -45,7 +43,6 @@ class Contact {
         throw "Last name is incorrect";
       }
     }
-  
     //method for validating address, city, state.
     validateAddressCityState(address) {
       let addressRegex = RegExp("^[A-z]{4,}$");
@@ -55,7 +52,6 @@ class Contact {
         return false;
       }
     }
-  
     //getter and setter for address.
     get address() {
       return this._address;
@@ -68,7 +64,6 @@ class Contact {
         throw "Address is incorrect";
       }
     }
-  
     //getter and setter for city.
     get city() {
       return this._city;
@@ -81,7 +76,6 @@ class Contact {
         throw "City is incorrect";
       }
     }
-  
     //getter and setter for state.
     get state() {
       return this._state;
@@ -94,7 +88,6 @@ class Contact {
         throw "State is incorrect";
       }
     }
-  
     //getter and setter for zip-code.
     get zip() {
       return this._zip;
@@ -108,7 +101,6 @@ class Contact {
         throw "zip is incorrect";
       }
     }
-  
     //getter and setter for phone-number.
     get phoneNumber() {
       return this._phoneNumber;
@@ -122,7 +114,6 @@ class Contact {
         throw "Phone number is incorrect";
       }
     }
-  
     //getter and setter for email.
     get email() {
       return this._email;
@@ -138,40 +129,82 @@ class Contact {
         throw "email is incorrect";
       }
     }
-  
     toString() {
-      return (
-        "First-Name = " +
-        this.firstName +
-        " Last-Name = " +
-        this.lastName +
-        " Address = " +
-        this.address +
-        " City = " +
-        this.city +
-        " State = " +
-        this.state +
-        " Zip = " +
-        this.zip +
-        " Phone-Number = " +
-        this.phoneNumber +
-        " email = " +
-        this.email
-      );
+        return (
+          "First-Name = " +
+          this.firstName +
+          " Last-Name = " +
+          this.lastName +
+          " Address = " +
+          this.address +
+          " City = " +
+          this.city +
+          " State = " +
+          this.state +
+          " Zip = " +
+          this.zip +
+          " Phone-Number = " +
+          this.phoneNumber +
+          " email = " +
+          this.email
+        );
+      }
     }
+    //prompt message on console for user input.
+const prompt = require("prompt-sync")({ sigint: true });
+
+//function to create new contact
+createContatct = () => {
+  let firstName = prompt("Enter First Name : ");
+  let lastName = prompt("Enter last Name : ");
+  let address = prompt("Enter Address : ");
+  let city = prompt("Enter City : ");
+  let state = prompt("Enter State : ");
+  let zip = prompt("Enter Zip : ");
+  let phoneNumber = prompt("Enter phone number : ");
+  let email = prompt("Enter Email address : ");
+  return new Contact(
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zip,
+    phoneNumber,
+    email
+  );
+};
+
+//array to store new contact.
+let addressBook = new Array();
+
+//user choice and calling functions.
+console.log("Welcome to address book");
+
+let isExit = false;
+while (!isExit) {
+  console.log("1 Add-Contact :\n2 Display-Contact :\n3 Exit :");
+
+  let userChoice = prompt("Enter the number as per against your choice : ");
+  switch (userChoice) {
+    case "1":
+      try {
+        addressBook.push(createContatct());
+      } catch (error) {
+        console.error(error);
+      }
+      break;
+    case "2":
+      console.log(addressBook);
+      break;
+    case "3":
+      console.log("Thank You For Using Address-Book.");
+      isExit = true;
+      break;
+    default:
+      console.log("Invalid Option");
+      break;
   }
-  try {
-    let contact = new Contact(
-        "Rushikesh",
-        "Bhandare",
-        "karvenaka",
-        "karad",
-        "Maharashtra",
-        415110,
-        "91 7743928819",
-        "rushikeshbhandare789@gmail.com"
-    );
-    console.log(contact.toString());
-  } catch (error) {
-    console.error(error);
-  }
+}
+
+ 
