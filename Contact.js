@@ -130,64 +130,82 @@ class Contact {
       }
     }
     toString() {
-        return (
-          "First-Name = " +
-          this.firstName +
-          " Last-Name = " +
-          this.lastName +
-          " Address = " +
-          this.address +
-          " City = " +
-          this.city +
-          " State = " +
-          this.state +
-          " Zip = " +
-          this.zip +
-          " Phone-Number = " +
-          this.phoneNumber +
-          " email = " +
-          this.email
-        );
+      return (
+        "First-Name = " +
+        this.firstName +
+        " Last-Name = " +
+        this.lastName +
+        " Address = " +
+        this.address +
+        " City = " +
+        this.city +
+        " State = " +
+        this.state +
+        " Zip = " +
+        this.zip +
+        " Phone-Number = " +
+        this.phoneNumber +
+        " email = " +
+        this.email
+      );
+    }
+  }
+  const prompt = require("prompt-sync")();
+  createContatct = () => {
+    let firstName = prompt("Enter First Name : ");
+    let lastName = prompt("Enter last Name : ");
+    let address = prompt("Enter Address : ");
+    let city = prompt("Enter City : ");
+    let state = prompt("Enter State : ");
+    let zip = prompt("Enter Zip : ");
+    let phoneNumber = prompt("Enter phone number : ");
+    let email = prompt("Enter Email address : ");
+    return new Contact(
+      firstName,
+      lastName,
+      address,
+      city,
+      state,
+      zip,
+      phoneNumber,
+      email
+    );
+  };
+  editConatct = () => {
+    let firstName = prompt(
+      "Enter First-Name of contact which you want to edit : "
+    );
+    let contact = addressBook.find((contact) => contact.firstName == firstName);
+    if (contact == undefined) {
+      console.log("Contact not found ");
+    } else {
+      try {
+        contact.firstName = prompt("Enter First Name : ");
+        contact.lastName = prompt("Enter last Name : ");
+        contact.address = prompt("Enter Address : ");
+        contact.city = prompt("Enter City : ");
+        contact.state = prompt("Enter State : ");
+        contact.zip = prompt("Enter Zip : ");
+        contact.phoneNumber = prompt("Enter phone number : ");
+        contact.email = prompt("Enter Email address : ");
+      } catch (error) {
+        console.error(error);
       }
     }
-    //prompt message on console for user input.
-const prompt = require("prompt-sync")({ sigint: true });
-
-//function to create new contact
-createContatct = () => {
-  let firstName = prompt("Enter First Name : ");
-  let lastName = prompt("Enter last Name : ");
-  let address = prompt("Enter Address : ");
-  let city = prompt("Enter City : ");
-  let state = prompt("Enter State : ");
-  let zip = prompt("Enter Zip : ");
-  let phoneNumber = prompt("Enter phone number : ");
-  let email = prompt("Enter Email address : ");
-  return new Contact(
-    firstName,
-    lastName,
-    address,
-    city,
-    state,
-    zip,
-    phoneNumber,
-    email
-  );
-};
-
-//array to store new contact.
-let addressBook = new Array();
+  };
+  let addressBook = new Array();
 
 //user choice and calling functions.
 console.log("Welcome to address book");
 
 let isExit = false;
 while (!isExit) {
-  console.log("1 Add-Contact :\n2 Display-Contact :\n3 Exit :");
-
-  let userChoice = prompt("Enter the number as per against your choice : ");
-  switch (userChoice) {
-    case "1":
+    console.log(
+        "1 Add-Contact :\n2 Display-Contact :\n3 Edit-Contact:\n4 Exit :"
+      );
+      let userChoice = prompt("Enter the number as per against your choice : ");
+      switch (userChoice) {    
+        case "1":
       try {
         addressBook.push(createContatct());
       } catch (error) {
@@ -198,13 +216,16 @@ while (!isExit) {
       console.log(addressBook);
       break;
     case "3":
+      editConatct();
+      break;
+    case "4":
       console.log("Thank You For Using Address-Book.");
       isExit = true;
       break;
-    default:
-      console.log("Invalid Option");
-      break;
-  }
-}
+      default:
+        console.log("Invalid Option");
+        break;
+    }
+  }    
 
  
