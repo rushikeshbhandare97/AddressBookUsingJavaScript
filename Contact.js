@@ -152,10 +152,35 @@ class Contact {
   }
   //array to store new contact.
   let addressBook = new Array();
+  addressBook.push(
+    new Contact(
+      "Rushikesh",
+      "Bhandare",
+      "ChaitnyaVihar",
+      "karad",
+      "Maharashta",
+      415110,
+      "91 7743928819",
+      "rushikesh123@gmail.com"
+    )
+  );
+  
+  addressBook.push(
+    new Contact(
+      "Akshay",
+      "Shinde",
+      "undri",
+      "pune",
+      "Maharashtra",
+      411048,
+      "91 7620043069",
+      "akshay456@gmail.com"
+    )
+  );
   //prompt message on console for user input.
   const prompt = require("prompt-sync")();
-  //function to create new contact
-  createContatct = () => {
+//function to create new contact
+createContatct = () => {
     let firstName = prompt("Enter First Name : ");
     let lastName = prompt("Enter last Name : ");
     let address = prompt("Enter Address : ");
@@ -174,12 +199,10 @@ class Contact {
       phoneNumber,
       email
     );
-  };
-  //method to add contact and check duplicate entries
-  function checkDuplicateContact() {
+    //method to add contact and check duplicate entries
+function checkDuplicateContact() {
     //calling createcontact function.
     let newContact = createContatct();
-  
     let alreadyExists = addressBook.filter(
       (contact) => contact.firstName == newContact.firstName
     ).length;
@@ -194,65 +217,82 @@ class Contact {
   editConatct = () => {
     let firstName = prompt(
       "Enter First-Name of contact which you want to edit : "
-    );
-    let contact = addressBook.find((contact) => contact.firstName == firstName);
-    if (contact == undefined) {
-      console.log("Contact not found ");
-    } else {
-      try {
-        contact.firstName = prompt("Enter First Name : ");
-        contact.lastName = prompt("Enter last Name : ");
-        contact.address = prompt("Enter Address : ");
-        contact.city = prompt("Enter City : ");
-        contact.state = prompt("Enter State : ");
-        contact.zip = prompt("Enter Zip : ");
-        contact.phoneNumber = prompt("Enter phone number : ");
-        contact.email = prompt("Enter Email address : ");
-      } catch (error) {
-        console.error(error);
+      );
+      let contact = addressBook.find((contact) => contact.firstName == firstName);
+      if (contact == undefined) {
+        console.log("Contact not found ");
+      } else {
+        try {
+          contact.firstName = prompt("Enter First Name : ");
+          contact.lastName = prompt("Enter last Name : ");
+          contact.address = prompt("Enter Address : ");
+          contact.city = prompt("Enter City : ");
+          contact.state = prompt("Enter State : ");
+          contact.zip = prompt("Enter Zip : ");
+          contact.phoneNumber = prompt("Enter phone number : ");
+          contact.email = prompt("Enter Email address : ");
+        } catch (error) {
+          console.error(error);
+        }
       }
-    }
-  };
-  //delete contact from addressbook.
-  deleteConatct = () => {
-    let contactName = prompt(
-      "Enter First-Name of contact which you want to delete : "
-    );
-    let isdelete = false;
-    for (var index = 0; index < addressBook.length; index++) {
-      if (addressBook[index].firstName == contactName) {
-        addressBook.splice(index, 1);
-        isdelete = true;
-      }
-    }
-    if (isdelete) {console.log("/nContact deleted sucessfully.\n");
-} else {
-  
-  console.log("\nContact not found.\n");
-}
-};
+    };
+    deleteConatct = () => {
+        let contactName = prompt(
+          "Enter First-Name of contact which you want to delete : "
+        );
+        let isdelete = false;
+        for (var index = 0; index < addressBook.length; index++) {
+          if (addressBook[index].firstName == contactName) {
+            addressBook.splice(index, 1);
+            isdelete = true;
+          }
+        }
+        if (isdelete) {
+          console.log("/nContact deleted sucessfully.\n");
+        } else {
+          console.log("\nContact not found.\n");
+        }
+      };
+      //fuction to count number of contact in addressbook.
 countContact = () => {
     let numberOfContact = addressBook
       .map((contact) => contact)
       .reduce((numberOfContact) => numberOfContact + 1, 0);
     console.log("\nNumber of contacts are : " + numberOfContact + " \n");
   };
-  //user choice and calling functions.
-  console.log("Welcome to address book");
-  let isExit = false;
-  while (!isExit) {
-    console.log(
-      "1 Add-Contact :\n2 Display-Contact :\n3 Print Count Of Contacts In Address-Book:\n4 Edit-Contact:\n5 Delete-Contact:\n6 Exit :"
+  //searching person in a city or state.
+  searchContact = () => {
+    let searchKey = prompt(
+      "\nEnter city or state of contact which you want to search : "
     );
-    let userChoice = prompt("Enter the number as per against your choice : ");
-    switch (userChoice) {
-      case "1":
-        //creating and add new contacts.
-        try {  checkDuplicateContact();
-        } catch (error) {
-          console.error(error);
-        }
-        break;
+    let searchResultList = addressBook.filter(
+      (contact) => contact.city == searchKey || contact.state == searchKey
+    );
+    console.log(
+      `The person having ${searchKey} are ${searchResultList.map(
+        (contact) => contact.firstName
+      )}`
+    );
+  };
+//user choice and calling functions.
+console.log("Welcome to address book");
+
+let isExit = false;
+while (!isExit) {
+  console.log(
+    "1 Add-Contact :\n2 Display-Contact :\n3 Print Count Of Contacts In Address-Book:\n4 Edit-Contact:\n5 Delete-Contact:\n6 Exit :"
+    
+  );
+  let userChoice = prompt("Enter the number as per against your choice : ");
+  switch (userChoice) {
+    case "1":
+      //creating and add new contacts.
+      try {
+        checkDuplicateContact();
+      } catch (error) {
+        console.error(error);
+      }
+      break;
     case "2":
       //display all contacts
       console.log(addressBook);
@@ -270,6 +310,14 @@ countContact = () => {
       deleteConatct();
       break;
     case "6":
+      //search person in city or state.
+      searchContact();
+      break;
+    case "7":
+      //exit from addressbook program
+      console.log("Thank You For Using Address-Book.");
+      isExit = true;
+      case "7":
       //exit from addressbook program
       console.log("Thank You For Using Address-Book.");
       isExit = true;
@@ -279,3 +327,5 @@ countContact = () => {
       break;
   }
 }
+}
+  
